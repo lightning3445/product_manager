@@ -12,9 +12,7 @@ class product(models.Model):
     proid=models.CharField(max_length=50,unique=True)
     name=models.CharField(max_length=50,unique=True)
 
-    file=models.FileField(upload_to="files/")
     image1=models.ImageField(upload_to="product/",blank=True,null=True)
-    image2=models.ImageField(upload_to="product/",blank=True,null=True)
 
     color=models.CharField(max_length=100)
     size=models.ManyToManyField(Size)

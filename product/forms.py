@@ -7,9 +7,7 @@ class productform(forms.ModelForm):
         fields=[
             'proid',
             'name',
-            'file',
             'image1',
-            'image2',
             'color',
             'size',
             'price',

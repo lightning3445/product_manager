@@ -134,26 +134,6 @@
 
             <!-- PRODUCT FILE -->
 
-            {% if products.file %}
-
-                <div class="detail-section">
-
-                    <h3>
-                        Product File
-                    </h3>
-
-                    <a
-                        href="{{ products.file.url }}"
-                        target="_blank"
-                        class="file-link"
-                    >
-                        📄 Open Product File
-                    </a>
-
-                </div>
-
-            {% endif %}
-
 
             <!-- IMAGES -->
 
@@ -172,16 +152,6 @@
 
                         <img width="200"
                             src="{{ products.image1.url }}"
-                            alt="{{ products.name }}"
-                        >
-
-                    {% endif %}
-
-
-                    {% if products.image2 %}
-
-                        <img
-                            src="{{ products.image2.url }}"
                             alt="{{ products.name }}"
                         >
 

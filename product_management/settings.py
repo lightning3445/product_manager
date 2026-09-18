@@ -93,12 +93,12 @@ if os.environ.get('VERCEL'):
         }
     }
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': LOCAL_DB,
-        }
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/tmp/db.sqlite3',
     }
+}
 
 
 # Password validation
@@ -150,4 +150,13 @@ MAILERS = {
 }
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+
+LOCAL_MEDIA_ROOT = BASE_DIR / "media"
+
+if os.environ.get("VERCEL"):
+    MEDIA_ROOT = Path("/tmp/media")
+
+    if LOCAL_MEDIA_ROOT.exists() and not MEDIA_ROOT.exists():
+        shutil.copytree(LOCAL_MEDIA_ROOT, MEDIA_ROOT)
+else:
+    MEDIA_ROOT = LOCAL_MEDIA_ROOT

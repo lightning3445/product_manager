@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 from pathlib import Path
+import shutil
 import os
 
 
@@ -75,12 +76,29 @@ WSGI_APPLICATION = 'product_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# Database
+LOCAL_DB = BASE_DIR / 'db.sqlite3'
+
+if os.environ.get('VERCEL'):
+    VERCEL_DB = '/tmp/db.sqlite3'
+
+    # Copy the existing database to Vercel's writable /tmp directory
+    if not os.path.exists(VERCEL_DB):
+        shutil.copy2(LOCAL_DB, VERCEL_DB)
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': VERCEL_DB,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': LOCAL_DB,
+        }
+    }
 
 
 # Password validation
